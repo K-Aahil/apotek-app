@@ -10,7 +10,6 @@ class InvoiceScreens extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
               Column(
@@ -19,15 +18,23 @@ class InvoiceScreens extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: const [
-                      Text(
-                        'Selamat',
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                        child: Text(
+                          'Selamat!',
+                          style: TextStyle(
+                              fontSize: 21, fontWeight: FontWeight.bold),
+                        ),
                       ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
                       Text(
-                        'Transaksin Berhasil ',
+                        'Transaksi Berhasil Dilakukan!',
                         style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),

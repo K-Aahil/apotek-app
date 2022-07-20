@@ -10,7 +10,7 @@ void main() {
   runApp(const MyApp());
 }
 
-const serverURL = "http://192.168.150.105:3000/";
+const serverURL = "https://plucky-mulberry-caterpillar.glitch.me/";
 String? token;
 Future<Map<String, dynamic>> getAPI(String path) async{
   Uri url = Uri.parse(serverURL+path);
@@ -18,6 +18,7 @@ Future<Map<String, dynamic>> getAPI(String path) async{
   if(token != null){
     header['Authorization'] = token!;
   }
+
   var response = await http.get(url, headers: header);
   return json.decode(response.body);
 }
@@ -38,22 +39,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
+    return GestureDetector(
+      onTap: () {},
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
           primarySwatch: Colors.blue,
-          buttonTheme: const ButtonThemeData(
-              buttonColor: Colors.green, disabledColor: Colors.grey)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        ),
+        home: MyHomePage(title: ''),
+      ),
     );
   }
 }
@@ -93,16 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
         body: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(30, 100, 30, 30),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -116,65 +104,80 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Text(
-                        'Hi,',
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Text(
-                        'Selamat Datang!',
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Text(
-                        'isi data pribadi anda',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: const [
+                        Text(
+                          'Hi,',
+                          style: TextStyle(
+                              fontSize: 21, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                      child: Row (
+                        mainAxisSize: MainAxisSize.max,
+                        children: const [
+                          Text(
+                            'Selamat Datang!',
+                            style: TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: const [
+                          Text(
+                            'Isi data pribadi anda',
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+
+                //  aku adalah akan ei efoaohf dfeao kkan jjw
+                //  kenapa sih pada berisik bangsat aing lieu yeuh babo g
+                ),
               ),
-              TextFormField(
-                autofocus: true,
-                obscureText: false,
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  hintText: 'Username',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                child: TextFormField(
+                  autofocus: true,
+                  obscureText: false,
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Username',
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
                   ),
                 ),

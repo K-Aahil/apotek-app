@@ -68,6 +68,48 @@ class _TransactionScreens extends State<TransactionScreens> {
           TextFormField(
             autofocus: true,
             obscureText: false,
+            readOnly: true,
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    const drugsType = ["aaa", 'bbb'];
+                    Map<String, bool> yes = {};
+                    return StatefulBuilder(builder: (context, setState) {
+                      return Scaffold(
+                        backgroundColor: Colors.transparent,
+                        body: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(child: Container()),
+                              Container(
+                                  color: Colors.white,
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.5,
+                                    child: ListView(
+                                      children: drugsType.map((String key) {
+                                        return CheckboxListTile(
+                                          title: Text(key),
+                                          value: yes[key] ?? false,
+                                          onChanged: (bool? value) {
+                                            print('${key}: ${value}');
+                                            setState(() {
+                                              yes[key] = value ?? false;
+                                            });
+                                          },
+                                        );
+                                      }).toList(),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                  });
+            },
             decoration: const InputDecoration(
               hintText: 'Masukkan Nama Pasien',
               enabledBorder: UnderlineInputBorder(
@@ -92,6 +134,11 @@ class _TransactionScreens extends State<TransactionScreens> {
               ),
             ),
           ),
+          //On the left side of the screen under SECURITY, click on Network Access.
+          // Click the green Add IP Address button.
+          // In the modal, click the ALLOW ACCESS FROM ANYWHERE button. You should see 0.0. 0.0/0 in the Access List Entry field.
+          // Click the green Confirm button.
+
           Row(
             mainAxisSize: MainAxisSize.max,
             children: const [
@@ -207,7 +254,7 @@ class _TransactionScreens extends State<TransactionScreens> {
               //  }
             },
             decoration: const InputDecoration(
-              hintText: '[Onat 1, Obat 2, Obat 3]',
+              hintText: '[Obat 1, Obat 2, Obat 3]',
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.grey,

@@ -18,6 +18,8 @@ class _SignUpScreen extends State<SignUpScreen> {
     passwordController  = TextEditingController();
     passwordConfirmController  = TextEditingController();
     super.initState();
+
+
   }
   Map<String, String> errorMessages = {};
 
@@ -42,7 +44,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       mainAxisSize: MainAxisSize.max,
                       children: const [
                         Text(
-                          'Silahkan isi data diri pribadi anda!',
+                          'Silahkan isi data pribadi anda!',
                           style: TextStyle(
                               fontSize: 21, fontWeight: FontWeight.bold),
                         )
@@ -238,6 +240,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           });
                           return;
                         }
+
                         Map<String, dynamic> signUpData = {};
                         signUpData['namaLengkap'] = namaLengkapController.text;
                         signUpData['username'] = usernameController.text;
