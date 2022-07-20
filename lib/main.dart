@@ -30,7 +30,6 @@ Future<Map<String, dynamic>> postAPI(String path, Map<String, dynamic> data) asy
   }
   var response = await http.post(url, body: data, headers: header);
   return json.decode(response.body);
-  return {};
 }
 
 class MyApp extends StatelessWidget {
@@ -270,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.green,
                     child: const Text(
                       "Daftar",
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

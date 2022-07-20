@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/main.dart';
+import 'package:untitled/screens/transaction_screens.dart';
 class SignUpScreen extends StatefulWidget{
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -246,6 +247,15 @@ class _SignUpScreen extends State<SignUpScreen> {
                           Map<String, dynamic> res = await postAPI("register",
                               signUpData);
                           print(res);
+                          if(res['token'] != null){
+                            token = res['token'];
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TransactionScreens(),
+                                ));
+                          }
                         }catch(e){
                           print(e);
                         }

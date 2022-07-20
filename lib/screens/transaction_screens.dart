@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/main.dart';
 import 'package:untitled/screens/invoice_screens.dart';
 
-class TransactionScreens extends StatelessWidget {
+class TransactionScreens extends StatefulWidget {
   const TransactionScreens({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _TransactionScreens();
+  }
+}
+
+class _TransactionScreens extends State<TransactionScreens> {
+  Map<String, dynamic> drugs = {};
+  List<String> types = [], drugsList = [];
+
+  @override
+  void initState() {
+    _getDrugs().then((value) {
+      setState(() {
+        drugs = value;
+        for (String s in drugs.keys) {
+          drugsList.add(s);
+        }
+      });
+    });
+    _getDrugsType().then((value) {
+      setState(() {
+        types = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +112,100 @@ class TransactionScreens extends StatelessWidget {
           ),
           TextFormField(
             obscureText: false,
+            readOnly: true,
+            onTap: () {
+              //if(drugsList.isNotEmpty) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    List<String> selectedDrugs = [];
+                    return FutureBuilder<Map<String, dynamic>>(
+                        future: _getDrugs(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            Map<String, dynamic> data = snapshot.data!;
+                            List<String> listData = [];
+                            data.forEach((key, value) {
+                              listData.add(key);
+                            });
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return Scaffold(
+                                backgroundColor: Colors.transparent,
+                                body: Center(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+
+                                      Expanded(child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )),
+
+                                      Container(
+                                          color: Colors.white,
+                                          child: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.5,
+                                            child: Column(
+                                              children: [
+                                                TextFormField(
+                                                  style: TextStyle(
+                                                      backgroundColor: Colors.white
+                                                  ),
+
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: listData.length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      Map<String, dynamic> drug =
+                                                          data[listData[index]];
+                                                      String name =
+                                                          drug['name'] ?? "";
+                                                      return CheckboxListTile(
+                                                        title: Text(name),
+                                                        value: selectedDrugs
+                                                            .contains(name),
+                                                        onChanged: (bool? value) {
+                                                          print('${name}: ${value}');
+                                                          setState(() {
+                                                            if ((value ?? false)) {
+                                                              selectedDrugs.add(name);
+                                                            } else {
+                                                              selectedDrugs
+                                                                  .remove(name);
+                                                            }
+                                                          });
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                          }
+                          if (snapshot.hasError) {
+                            print(snapshot.error);
+                            Navigator.pop(context);
+                          }
+                          return Container();
+                        });
+                  });
+              //  }
+            },
             decoration: const InputDecoration(
               hintText: '[Onat 1, Obat 2, Obat 3]',
               enabledBorder: UnderlineInputBorder(
@@ -123,41 +246,71 @@ class TransactionScreens extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    const drugsType = ["aaa", 'bbb'];
-                    Map<String, bool> yes = {};
-                    return StatefulBuilder(builder: (context, setState) {
-                      return Scaffold(
-                        backgroundColor: Colors.transparent,
-                        body: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Expanded(child: Container()),
-                              Container(
-                                  color: Colors.white,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.5,
-                                    child: ListView(
-                                      children: drugsType.map((String key) {
-                                        return CheckboxListTile(
-                                          title: Text(key),
-                                          value: yes[key] ?? false,
-                                          onChanged: (bool? value) {
-                                            print('${key}: ${value}');
-                                            setState(() {
-                                              yes[key] = value ?? false;
-                                            });
-                                          },
-                                        );
-                                      }).toList(),
+                    return FutureBuilder<List<String>>(
+                        future: _getDrugsType(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<String> listData = snapshot.data!;
+
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Scaffold(
+                                    backgroundColor: Colors.transparent,
+                                    body: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                        children: [
+
+                                          Expanded(child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                          )),
+
+                                          Container(
+                                              color: Colors.white,
+                                              child: SizedBox(
+                                                height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.5,
+                                                child: Column(
+                                                  children: [
+                                                    TextFormField(
+                                                      style: TextStyle(
+                                                          backgroundColor: Colors.white
+                                                      ),
+
+                                                    ),
+                                                    Expanded(
+                                                      child: ListView.builder(
+                                                        itemCount: listData.length,
+                                                        itemBuilder:
+                                                            (BuildContext context,
+                                                            int index) {
+                                                          String name = listData[index];
+                                                          return MaterialButton(onPressed: (){
+
+                                                          }, child:Text(name),);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )),
+                                        ],
+                                      ),
                                     ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                                  );
+                                });
+                          }
+                          if (snapshot.hasError) {
+                            print(snapshot.error);
+                            Navigator.pop(context);
+                          }
+                          return Container();
+                        });
                   });
             },
             decoration: const InputDecoration(
@@ -220,5 +373,45 @@ class TransactionScreens extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  Future<Map<String, dynamic>> _getDrugs() async {
+    Map<String, dynamic> a = await getAPI("drugs");
+    Map<String, dynamic> drugsLocal = {};
+    if (a['drugs'] != null) {
+      for (Map<String, dynamic> drug in a['drugs']) {
+        drugsLocal[drug['name']] = drug;
+        drugsList = [];
+        for (String s in drugsLocal.keys) {
+          drugsList.add(s);
+        }
+        drugs = drugsLocal;
+
+      }
+      return drugsLocal;
+    }
+    return {};
+  }
+
+  Future<List<String>> _getDrugsType() async {
+    Map<String, dynamic> a = await getAPI("drugsType");
+    if (a['drugsType'] != null) {
+      List<String> aaaaaa = [];
+      for(String a in  a['drugsType']){
+        aaaaaa.add(a);
+      }
+      return aaaaaa;
+    }
+    return [];
+  }
+
+  Future<List<String>> _getDrugsList() async {
+    Map<String, dynamic> drugsData = await _getDrugs();
+
+    List<String> drugs = [];
+    for (String key in drugsData.keys) {
+      drugs.add(key);
+    }
+    return drugs;
   }
 }
