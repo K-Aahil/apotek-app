@@ -36,11 +36,11 @@ class _TransactionScreens extends State<TransactionScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
-      padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(30, 70, 30, 30),
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             mainAxisSize: MainAxisSize.max,
@@ -48,9 +48,12 @@ class _TransactionScreens extends State<TransactionScreens> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: const [
-                  Text(
-                    'Tambah',
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.all(0.0),
+                    child: Text(
+                      'Tambah',
+                      style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),
@@ -59,77 +62,41 @@ class _TransactionScreens extends State<TransactionScreens> {
           Row(
             mainAxisSize: MainAxisSize.max,
             children: const [
-              Text(
-                'Nama Pasien',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 53, 0, 0),
+                child: Text(
+                  'Nama Pasien',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                ),
               )
             ],
           ),
-          TextFormField(
-            autofocus: true,
-            obscureText: false,
-            readOnly: true,
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    const drugsType = ["aaa", 'bbb'];
-                    Map<String, bool> yes = {};
-                    return StatefulBuilder(builder: (context, setState) {
-                      return Scaffold(
-                        backgroundColor: Colors.transparent,
-                        body: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Expanded(child: Container()),
-                              Container(
-                                  color: Colors.white,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.5,
-                                    child: ListView(
-                                      children: drugsType.map((String key) {
-                                        return CheckboxListTile(
-                                          title: Text(key),
-                                          value: yes[key] ?? false,
-                                          onChanged: (bool? value) {
-                                            print('${key}: ${value}');
-                                            setState(() {
-                                              yes[key] = value ?? false;
-                                            });
-                                          },
-                                        );
-                                      }).toList(),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-                  });
-            },
-            decoration: const InputDecoration(
-              hintText: 'Masukkan Nama Pasien',
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+            child: TextFormField(
+              autofocus: true,
+              obscureText: false,
+              decoration: const InputDecoration(
+                hintText: 'Masukkan Nama Pasien',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
                 ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
                 ),
               ),
             ),
@@ -139,247 +106,149 @@ class _TransactionScreens extends State<TransactionScreens> {
           // In the modal, click the ALLOW ACCESS FROM ANYWHERE button. You should see 0.0. 0.0/0 in the Access List Entry field.
           // Click the green Confirm button.
 
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: const [
-              Text(
-                'Pilih Nama Obat',
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: const [
-              Text(
-                'Pilih Obat',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-              )
-            ],
-          ),
-          TextFormField(
-            obscureText: false,
-            readOnly: true,
-            onTap: () {
-              //if(drugsList.isNotEmpty) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    List<String> selectedDrugs = [];
-                    return FutureBuilder<Map<String, dynamic>>(
-                        future: _getDrugs(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            Map<String, dynamic> data = snapshot.data!;
-                            List<String> listData = [];
-                            data.forEach((key, value) {
-                              listData.add(key);
-                            });
-                            return StatefulBuilder(
-                                builder: (context, setState) {
-                              return Scaffold(
-                                backgroundColor: Colors.transparent,
-                                body: Center(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-
-                                      Expanded(child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                      )),
-
-                                      Container(
-                                          color: Colors.white,
-                                          child: SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.5,
-                                            child: Column(
-                                              children: [
-                                                TextFormField(
-                                                  style: TextStyle(
-                                                      backgroundColor: Colors.white
-                                                  ),
-
-                                                ),
-                                                Expanded(
-                                                  child: ListView.builder(
-                                                    itemCount: listData.length,
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int index) {
-                                                      Map<String, dynamic> drug =
-                                                          data[listData[index]];
-                                                      String name =
-                                                          drug['name'] ?? "";
-                                                      return CheckboxListTile(
-                                                        title: Text(name),
-                                                        value: selectedDrugs
-                                                            .contains(name),
-                                                        onChanged: (bool? value) {
-                                                          print('${name}: ${value}');
-                                                          setState(() {
-                                                            if ((value ?? false)) {
-                                                              selectedDrugs.add(name);
-                                                            } else {
-                                                              selectedDrugs
-                                                                  .remove(name);
-                                                            }
-                                                          });
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                          }
-                          if (snapshot.hasError) {
-                            print(snapshot.error);
-                            Navigator.pop(context);
-                          }
-                          return Container();
-                        });
-                  });
-              //  }
-            },
-            decoration: const InputDecoration(
-              hintText: '[Obat 1, Obat 2, Obat 3]',
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
-                ),
-              ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Pilih Nama Obat',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
             ),
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: const [
-              Text(
-                'Pilih Jenis Obat',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Text(
+                  'Pilih Obat',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                ),
               )
             ],
           ),
-          TextFormField(
-            obscureText: false,
-            readOnly: true,
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return FutureBuilder<List<String>>(
-                        future: _getDrugsType(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            List<String> listData = snapshot.data!;
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+            child: TextFormField(
+              obscureText: false,
+              readOnly: true,
+              onTap: () {
+                //if(drugsList.isNotEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      List<String> selectedDrugs = [];
+                      return FutureBuilder<Map<String, dynamic>>(
+                          future: _getDrugs(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              Map<String, dynamic> data = snapshot.data!;
+                              List<String> listData = [];
+                              data.forEach((key, value) {
+                                listData.add(key);
+                              });
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                return Scaffold(
+                                  backgroundColor: Colors.transparent,
+                                  body: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
 
-                            return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return Scaffold(
-                                    backgroundColor: Colors.transparent,
-                                    body: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        children: [
+                                        Expanded(child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )),
 
-                                          Expanded(child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                          )),
-
-                                          Container(
-                                              color: Colors.white,
-                                              child: SizedBox(
-                                                height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.5,
-                                                child: Column(
-                                                  children: [
-                                                    TextFormField(
-                                                      style: TextStyle(
-                                                          backgroundColor: Colors.white
-                                                      ),
-
+                                        Container(
+                                            color: Colors.white,
+                                            child: SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
+                                              child: Column(
+                                                children: [
+                                                  TextFormField(
+                                                    style: TextStyle(
+                                                        backgroundColor: Colors.white
                                                     ),
-                                                    Expanded(
-                                                      child: ListView.builder(
-                                                        itemCount: listData.length,
-                                                        itemBuilder:
-                                                            (BuildContext context,
-                                                            int index) {
-                                                          String name = listData[index];
-                                                          return MaterialButton(onPressed: (){
 
-                                                          }, child:Text(name),);
-                                                        },
-                                                      ),
+                                                  ),
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount: listData.length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        Map<String, dynamic> drug =
+                                                            data[listData[index]];
+                                                        String name =
+                                                            drug['name'] ?? "";
+                                                        return CheckboxListTile(
+                                                          title: Text(name),
+                                                          value: selectedDrugs
+                                                              .contains(name),
+                                                          onChanged: (bool? value) {
+                                                            print('${name}: ${value}');
+                                                            setState(() {
+                                                              if ((value ?? false)) {
+                                                                selectedDrugs.add(name);
+                                                              } else {
+                                                                selectedDrugs
+                                                                    .remove(name);
+                                                              }
+                                                            });
+                                                          },
+                                                        );
+                                                      },
                                                     ),
-                                                  ],
-                                                ),
-                                              )),
-                                        ],
-                                      ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )),
+                                      ],
                                     ),
-                                  );
-                                });
-                          }
-                          if (snapshot.hasError) {
-                            print(snapshot.error);
-                            Navigator.pop(context);
-                          }
-                          return Container();
-                        });
-                  });
-            },
-            decoration: const InputDecoration(
-              hintText: '[Tablet, Syrup]',
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+                                  ),
+                                );
+                              });
+                            }
+                            if (snapshot.hasError) {
+                              print(snapshot.error);
+                              Navigator.pop(context);
+                            }
+                            return Container();
+                          });
+                    });
+                //  }
+              },
+              decoration: const InputDecoration(
+                hintText: '[Obat 1, Obat 2, Obat 3]',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
                 ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  topRight: Radius.circular(4.0),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
                 ),
               ),
             ),
@@ -387,15 +256,131 @@ class _TransactionScreens extends State<TransactionScreens> {
           Row(
             mainAxisSize: MainAxisSize.max,
             children: const [
-              Text(
-                'Subtotal',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Rp. 10.000',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Text(
+                  'Pilih Jenis Obat',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                ),
               )
             ],
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+            child: TextFormField(
+              obscureText: false,
+              readOnly: true,
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FutureBuilder<List<String>>(
+                          future: _getDrugsType(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List<String> listData = snapshot.data!;
+
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return Scaffold(
+                                      backgroundColor: Colors.transparent,
+                                      body: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+
+                                            Expanded(child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            )),
+
+                                            Container(
+                                                color: Colors.white,
+                                                child: SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      0.5,
+                                                  child: Column(
+                                                    children: [
+                                                      TextFormField(
+                                                        style: TextStyle(
+                                                            backgroundColor: Colors.white
+                                                        ),
+
+                                                      ),
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                          itemCount: listData.length,
+                                                          itemBuilder:
+                                                              (BuildContext context,
+                                                              int index) {
+                                                            String name = listData[index];
+                                                            return MaterialButton(onPressed: (){
+
+                                                            }, child:Text(name),);
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            }
+                            if (snapshot.hasError) {
+                              print(snapshot.error);
+                              Navigator.pop(context);
+                            }
+                            return Container();
+                          });
+                    });
+              },
+              decoration: const InputDecoration(
+                hintText: '[Tablet, Syrup]',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 240, 0, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Subtotal',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Rp. 10.000',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                )
+              ],
+            ),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,

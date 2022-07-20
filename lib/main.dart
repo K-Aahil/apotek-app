@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(30, 100, 30, 30),
           child: Column(
@@ -105,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 33, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -120,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 3, 0, 0),
                       child: Row (
                         mainAxisSize: MainAxisSize.max,
                         children: const [
@@ -133,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: const [
@@ -152,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                 child: TextFormField(
                   autofocus: true,
                   obscureText: false,
@@ -183,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 21),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                 child: Stack(
                   children: [
                     TextFormField(
@@ -224,55 +225,61 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.06,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                  child: MaterialButton(
-                    onPressed: () async{
-                      Map<String, dynamic> data = {
-                        "username": usernameController.text,
-                        "password": passwordController.text
-                      };
-                      try {
-                        var result = await postAPI("login", data);
-                        if(result['token'] != null){
-                          token = result['token'];
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TransactionScreens(),
-                              ));
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                    child: MaterialButton(
+                      onPressed: () async{
+                        Map<String, dynamic> data = {
+                          "username": usernameController.text,
+                          "password": passwordController.text
+                        };
+                        try {
+                          var result = await postAPI("login", data);
+                          if(result['token'] != null){
+                            token = result['token'];
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TransactionScreens(),
+                                ));
+                          }
+                        }catch(e){
+                          print(e);
                         }
-                      }catch(e){
-                        print(e);
-                      }
-                    },
-                    color: Colors.grey[300],
-                    child: Text(
-                      "Masuk",
-                      style: TextStyle(color: Colors.grey[600]),
+                      },
+                      color: Colors.grey[300],
+                      child: Text(
+                        "Masuk",
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.06,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                  child: MaterialButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpScreen(),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 17, 0, 0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                    child: MaterialButton(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpScreen(),
+                        ),
                       ),
-                    ),
-                    color: Colors.green,
-                    child: const Text(
-                      "Daftar",
-                      style: TextStyle(color: Colors.white),
+                      color: Colors.green,
+                      child: const Text(
+                        "Daftar",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

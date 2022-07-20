@@ -28,13 +28,12 @@ class _SignUpScreen extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.8,
           child: Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(30, 150, 30, 30),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
                 Column(
@@ -52,93 +51,102 @@ class _SignUpScreen extends State<SignUpScreen> {
                     ),
                   ],
                 ),
-                TextFormField(
-                  autofocus: true,
-                  obscureText: false,
-                  controller: namaLengkapController,
-                  decoration:  InputDecoration(
-                    hintText: 'Nama Lengkap',
-                    errorText: errorMessages['namaLengkap'],
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                  child: TextFormField(
+                    autofocus: true,
+                    obscureText: false,
+                    controller: namaLengkapController,
+                    decoration:  InputDecoration(
+                      hintText: 'Nama Lengkap',
+                      errorText: errorMessages['namaLengkap'],
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
                       ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                  ),
-                ),
-                TextFormField(
-                  autofocus: true,
-                  obscureText: false,
-                  controller: usernameController,
-                  decoration: const InputDecoration(
-                    hintText: 'Username',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                  ),
-                ),
-                TextFormField(
-                  autofocus: true,
-                  obscureText: false,
-                  controller: alamatController,
-                  decoration: const InputDecoration(
-                    hintText: 'Alamat',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 21),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormField(
+                    autofocus: true,
+                    obscureText: false,
+                    controller: usernameController,
+                    decoration: const InputDecoration(
+                      hintText: 'Username',
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormField(
+                    autofocus: true,
+                    obscureText: false,
+                    controller: alamatController,
+                    decoration: const InputDecoration(
+                      hintText: 'Alamat',
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Stack(
                     children: [
                       TextFormField(
@@ -180,7 +188,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 21),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Stack(
                     children: [
                       TextFormField(
@@ -223,9 +231,9 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.06,
+                  height: MediaQuery.of(context).size.height * 0.12,
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                     child: MaterialButton(
                       onPressed: () async {
                         if(namaLengkapController.text.isEmpty){
